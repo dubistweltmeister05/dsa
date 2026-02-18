@@ -1,0 +1,36 @@
+name: Block README changes in PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  block-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Block README changes for non-owner
+        if: ${{ github.actor != github.repository_owner }}
+        run: |
+          BASE_SHA=${{ github.event.pull_request.base.sha }}
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+
+          echo "Base SHA: $BASE_SHA"
+          echo "Head SHA: $HEAD_SHA"
+
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          if echo "$CHANGED_FILES" | grep -q '^README\.md$'; then
+            echo "ERROR: README.md changes are not allowed in this pull request."
+            echo "Please revert README.md or put README edits in a separate, explicitly-reviewed change."
+            exit 1
+          fi
+
+          echo "No blocked README.md changes detected for this PR."

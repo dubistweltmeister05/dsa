@@ -4,12 +4,26 @@ Tick them off as you get comfortable implementing and using each of these.
 
 ---
 
+## Contributing
+
+If you’ve used this as your basepoint and added useful examples, fixes, or new embedded-focused DSA topics:
+
+- Open a pull request against this original repo with a short description of what you changed or added.
+- Keep implementations in C (or very close to bare-metal/RTOS C environments) and prefer static or bounded memory usage where possible.
+- Follow the existing folder layout when adding new implementations (e.g., `arrays/`, `Linear_DS/`, `Trees/`, `RTOS/`, `DSP/`, etc.), and create a new subfolder per concept/checklist item you implement (for example, `arrays/2-D_arrays/`, `Linear_DS/queue/`).
+- If you base an implementation on code or an article you found on the internet, you **must** include a comment with the original source link at the very top of your `.c`/`.h` file, for example:
+	- `// Source: https://example.com/path-to-implementation`
+
+This keeps the repo organized, attribution clear, and learning-focused.
+
+---
+
 ## How to Use This Repo as Your Basepoint
 
 1. **Fork this repository** into your own GitHub account so you can customize it and track your personal progress.
 2. **Clone your fork locally** and open it in your editor/IDE.
 3. **Use this checklist as your roadmap**: pick one topic at a time (e.g., arrays, ring buffers, FSMs) and focus on understanding + implementing it in C.
-4. **Implement each item at least once in C**, preferably in a small, self-contained example under the relevant folder (e.g., `arrays/`, `linked_list/`, `RTOS/`). Use static memory where it makes sense for embedded systems.
+4. **Implement each item at least once in C**, preferably in a small, self-contained example under the relevant folder (e.g., `arrays/`, `linked_list/`, `RTOS/`). For each checklist topic you implement, create a dedicated subfolder inside the relevant top-level folder (e.g., `arrays/dynamic_arrays/`, `Linear_DS/circular_queue/`) and keep its `.c`/`.h` files there. Use static memory where it makes sense for embedded systems.
 5. **Mark the checkbox** once you can implement, explain, and reuse that structure/algorithm confidently in an embedded context.
 6. **Commit your solutions regularly** with clear messages so you (and others) can review how your understanding evolves over time.
 7. Optionally, **add notes or a personal log** (e.g., in a separate markdown file) about gotchas, performance tradeoffs, and how each concept maps to real embedded problems you’ve seen.
@@ -284,18 +298,6 @@ If these are all ticked, you’re already dangerous:
 - [ ] Finite State Machines
 - [ ] Producer–Consumer queues
 - [ ] Bit manipulation
-
----
-
-## Contributing
-
-If you’ve used this as your basepoint and added useful examples, fixes, or new embedded-focused DSA topics:
-
-- Open a pull request against this original repo with a short description of what you changed or added.
-- Keep implementations in C (or very close to bare-metal/RTOS C environments) and prefer static or bounded memory usage where possible.
-- Try to follow the existing folder layout when adding new implementations (e.g., arrays, linked_list, RTOS, DSP, etc.).
-
-This way, others can benefit from your improvements and variant implementations.
 
 ---
 
