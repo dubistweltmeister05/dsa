@@ -74,11 +74,7 @@ int main(void) {
 		printf("Enqueue failed\n");
 	}
 	display_queue(queue);
-	printf("Dequeue\n");
-	ret = dequeue(queue, "3");
-	if (ret < 0) {
-		printf("dequeue failed\n");
-	}
+
 	return 0;
 			
 }
