@@ -2,7 +2,6 @@
 #include "queue.h"
 #include <stdbool.h>
 
-
 void display_queue(queue_t *queue) {
     printf("--- Queue Display ---\n");
 
@@ -26,6 +25,7 @@ int main(void) {
 	queue_t *queue = NULL;
 	int size = 10;
 	char *str = "first";
+	char *data;
 
 	printf("Queue initialization\n");
 	queue_init(&queue, str, size);
@@ -74,7 +74,22 @@ int main(void) {
 		printf("Enqueue failed\n");
 	}
 	display_queue(queue);
+	ret = dequeue(queue, data);
+	if (ret < 0) {
+		printf("dequeue failed\n");
+	}
+	ret = dequeue(queue, data);
+	if (ret < 0) {
+		printf("dequeue failed\n");
+	}
+	display_queue(queue);
+
+	printf("Again enqueue\n");
+	ret = enqueue(queue, "15");
+	if (ret < 0) {
+		printf("Enqueue failed\n");
+	}
+	display_queue(queue);
 
 	return 0;
-			
 }
