@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "master", "devel" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build All Modules
+        run: |
+          # Find and compile all Makefiles
+          for dir in $(find . -name "Makefile" -exec dirname {} +); do
+            echo "Building in $dir..."
+            make -C "$dir"
+          done
+          
+          # Collect binaries for artifacts
+          mkdir -p bin_out
+          find . -maxdepth 10 -type f -executable -not -path '*/.*' -not -path './bin_out/*' -exec cp {} ./bin_out/ \;
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-outputs-${{ github.ref_name }}
+          path: bin_out/
+
+      # Optional: Create a formal Release only when pushing to master
+      - name: Production Release
+        if: github.ref == 'refs/heads/master'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: prod-build-${{ github.run_number }}
+          files: bin_out/*
+          generate_release_notes: true
