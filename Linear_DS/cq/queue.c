@@ -36,7 +36,7 @@ void queue_init(queue_t **queue, char *data, int size){
 
 int enqueue(queue_t *queue, char *data) {
 	if (queue->front == (queue->rear + 1) % queue->size) {
-		printf("Queue is full");
+		printf("Queue is full\n");
 		return -1;
 	}
 
@@ -50,5 +50,22 @@ int enqueue(queue_t *queue, char *data) {
 
 	queue->data[queue->rear] = data;
 	
+	return 0;
+}
+
+int dequeue(queue_t *queue, char *data) {
+	if (queue == NULL) {
+		printf("Queue is empty\n");
+		return -1;
+	}
+
+	if (queue->front == -1) {
+		printf("Queue is empty\n");
+		return -1;
+	}
+
+	*data  = queue->data[queue->front];
+	queue->front = (queue->front + 1) % queue->size;
+
 	return 0;
 }
