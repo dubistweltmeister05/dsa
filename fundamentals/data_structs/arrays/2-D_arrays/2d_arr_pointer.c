@@ -33,7 +33,6 @@ int allocate_2d(int ***arr) {
 			return -1;
 		}
 	}
-
 	return 0;
 }
 
@@ -69,7 +68,6 @@ int main(int argc, char *argv[]) {
 
 	get_elements(arr);
 
-	transpose_matrix(arr);
 	if (arr != NULL) {
 		printf("******* Matrix ********\n");
 		display_array(arr);
