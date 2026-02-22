@@ -1,3 +1,6 @@
+#ifndef SINGLY_LL
+#define SINGLY_LL
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -21,5 +24,4 @@ int singly_insert(singly_ll *list, size_t index, int data);
 void singly_remove(singly_ll *list, size_t index);
 void singly_print(singly_ll *list);
 
-
-
+#endif

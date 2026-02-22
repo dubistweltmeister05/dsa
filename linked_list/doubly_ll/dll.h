@@ -1,4 +1,6 @@
-#include <stdio.h>
+#ifndef DOUBLY_LL
+#define DOUBLY_LL
+
 #include <stdlib.h>
 
 typedef struct node node_t;
@@ -23,5 +25,4 @@ int doubly_insert(doubly_ll *list, size_t index, int data);
 void doubly_remove(doubly_ll *list, size_t index);
 void doubly_print(doubly_ll *list);
 
-
-
+#endif
