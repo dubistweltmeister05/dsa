@@ -1,3 +1,5 @@
+#ifndef CIRCULAR_LL
+#define CIRCULAR_LL
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,4 +26,4 @@ int circular_insert(circular_ll *list, size_t index, int data);
 void circular_remove(circular_ll *list, size_t index);
 void circular_print(circular_ll *list);
 
-
+#endif
