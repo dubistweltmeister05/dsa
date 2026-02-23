@@ -29,7 +29,7 @@ static int validate_queue_nonempty(queue *q) {
 }
 
 queue* queue_init(void) {
-	queue *q = malloc(sizeof(queue));
+	queue *q = (queue *) malloc(sizeof(queue));
 	if (!q) {
 		fprintf(stderr, "%s: malloc failed\n", __func__);
 		return NULL;
@@ -43,7 +43,7 @@ queue* queue_init(void) {
 int enqueue(queue *q, int data) {
 	if (queue_is_null(q)) return 1;
 
-	node_t *node_to_insert = malloc(sizeof(node_t));
+	node_t *node_to_insert = (node_t *)malloc(sizeof(node_t));
 	if (!node_to_insert) {
 		fprintf(stderr, "%s: malloc failed\n", __func__);
 		return 1;
