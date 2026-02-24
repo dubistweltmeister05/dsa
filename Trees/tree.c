@@ -67,7 +67,7 @@ static void destroy(void)
     q_rear = NULL;
 }
 
-void add(char data)
+void add(int data)
 {
     node_s *node = allocate;
     if (!node)
@@ -117,29 +117,58 @@ void add(char data)
     destroy();
 }
 
-static void inorder_traversal(node_s *root)
+static void dfs_in(node_s *root)
 {
     if (root == NULL)
     {
         return;
     }
 
-    inorder_traversal(root->l_child);
-    printf("%c ", root->data);
-    inorder_traversal(root->r_child);
+    dfs_in(root->l_child);
+    printf(" %d ", root->data);
+    dfs_in(root->r_child);
 }
 
+void dfs_post(node_s *__root){
+    node_s *current=__root;
+
+    if(current==NULL){
+        return;
+    }
+    dfs_post(current->l_child);
+    
+    dfs_post(current->r_child);
+
+    printf(" %d ",current->data);
+}
+
+void dfs_pre(node_s *__root){
+    node_s *current=__root;
+
+    if(current==NULL){
+        return;
+    }
+    printf(" %d ",current->data);
+
+    dfs_pre(current->l_child);
+    
+    dfs_pre(current->r_child);
+}
 int main(void)
 {
-    add('A');
-    add('B');
-    add('C');
-    add('D');
-    add('E');
+    // add(0);
+    for(int i=0;i<10;i++){
+        add(i);
+    }
 
     printf("\nInorder traversal: ");
-    inorder_traversal(__root);
+    dfs_in(__root);
     printf("\n");
-
+    printf("\nPreorder traversal: ");
+    dfs_post(__root);
+    printf("\n");
+    printf("\nPostorder traversal: ");
+    dfs_pre(__root);
+    printf("\n");
     return 0;
 }
