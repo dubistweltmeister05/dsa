@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 typedef struct node {
-    char data;
+    int data;
     struct node *l_child;
     struct node *r_child;
 } __attribute__((packed)) node_s;
@@ -10,4 +10,5 @@ typedef struct node {
 node_s *__root=NULL;
 
 #define allocate (node_s*)malloc(sizeof(node_s))
-void add (char data);
+void add (int data);
+void dfs(node_s *root);
