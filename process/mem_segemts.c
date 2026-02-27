@@ -24,16 +24,14 @@ static void docalc(int val) {
 
 int main(int argc, char *argv[]) {
 	static int key = 50;
-	static char mbuf[111234];
+	// static char mbuf[111234];
 
 	pid_t pid;
 
-	pid = getpid();
+	pid = (pid_t)getpid();
 
-	printf("pid = %d\n", pid);
-	char *p;
-
-	p = malloc(1024);
+	printf("pid = %lld\n", pid);
+	// char *p= (char*)malloc(sizeof(char)*1024);
 
 	docalc(key);
 
