@@ -43,18 +43,26 @@ int main(int argc, char *argv[]) {
 	switch(choice){
 	case BUBBLE:
 		res = bubble_sort(arr, size);
-		if (res < 0) {
-			printf("bubble sort failed\n");
-		} else {
-			printf("Bubble Sort success\n");
-		}
+		break;
+	case SELECTION:
+		res = selection_sort(arr, size);
 		break;
 	default:
 		printf("Invalid choice\n");
 	}
 
+	if (res < 0) {
+		printf("sorting failed\n");
+	} else {
+		printf("Sorting success\n");
+	}
+
 	printf("After sorting\n");
 	print_ele(arr, size);
+
+	if (arr) {
+		free(arr);
+	}
 
 	return 0;
 }
