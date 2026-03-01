@@ -1,16 +1,20 @@
-CC=gcc
-CFLAGS=-Wall -g -I .
-OBJS=sorting.o main.o
-TARGET=sorting_techniques
+CC = gcc
+CFLAGS = -Wall -Wextra -g -I . -MMD -MP
 
-all:$(TARGET)
+TARGET = sorting_techniques
+SRCS = main.c sorting.c
+OBJS = $(SRCS:.c=.o)
+
+all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $^ -o $@
 
-%.o: %.c %.h
-	$(CC) $(CFLAGS) -c  $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY:clean
+-include $(OBJS:.o=.d)
+
+.PHONY: clean
 clean:
-	rm *~ $(TARGET) *.o
+	rm -f $(TARGET) $(OBJS) $(OBJS:.o=.d)

@@ -1,16 +1,19 @@
 #include "queue.h"
 #include <string.h>
 
-void queue_init(queue_t **queue, char *data, int size){
+void queue_init(queue_t **queue, char *data, int size)
+{
 	queue_t *q = malloc(sizeof(queue_t));
-	if (!q) {
+	if (!q)
+	{
 		printf("failed to allocate memory\n");
 		free(q);
 		return;
 	}
 
 	q->data = malloc(sizeof(char *) * size);
-	if (q->data ==  NULL) {
+	if (q->data == NULL)
+	{
 		printf("failed to allocate memory for queue->data\n");
 		free(q->data);
 		return;
@@ -20,9 +23,11 @@ void queue_init(queue_t **queue, char *data, int size){
 	q->rear = -1;
 	q->size = size;
 
-	if (data) {
+	if (data)
+	{
 		q->data[0] = data;
-		if (!q->data[0]) {
+		if (!q->data[0])
+		{
 			printf("Failed to add data\n");
 			free(q);
 			return;
@@ -34,38 +39,48 @@ void queue_init(queue_t **queue, char *data, int size){
 	*queue = q;
 }
 
-int enqueue(queue_t *queue, char *data) {
-	if (queue->front == (queue->rear + 1) % queue->size) {
+int enqueue(queue_t *queue, char *data)
+{
+	if (queue->front == (queue->rear + 1) % queue->size)
+	{
 		printf("Queue is full\n");
 		return -1;
 	}
 
 	/* When Queue is empty */
-	if (queue->front == -1 && queue->rear == -1) {
+	if (queue->front == -1 && queue->rear == -1)
+	{
 		queue->front = 0;
 		queue->rear = 0;
-	} else {
+	}
+	else
+	{
 		queue->rear = (queue->rear + 1) % queue->size;
 	}
 
 	queue->data[queue->rear] = data;
-	
+
 	return 0;
 }
-
-int dequeue(queue_t *queue, char *data) {
-	if (queue == NULL) {
+int dequeue(queue_t *queue, char **data)
+{
+	if (queue == NULL || queue->front == -1)
+	{
 		printf("Queue is empty\n");
 		return -1;
 	}
 
-	if (queue->front == -1) {
-		printf("Queue is empty\n");
-		return -1;
-	}
+	*data = queue->data[queue->front];
 
-	*data  = queue->data[queue->front];
-	queue->front = (queue->front + 1) % queue->size;
+	if (queue->front == queue->rear)
+	{
+		queue->front = -1;
+		queue->rear = -1;
+	}
+	else
+	{
+		queue->front = (queue->front + 1) % queue->size;
+	}
 
 	return 0;
 }
