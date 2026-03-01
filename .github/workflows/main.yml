@@ -1,0 +1,64 @@
+name: C/C++ Multi-Module CI
+
+on:
+  push:
+    branches: [ "master", "devel" ]
+  pull_request:
+    branches: [ "master", "devel" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Build Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential gcc g++ make
+
+      - name: Compile All Modules
+        run: |
+          # 'set -e' ensures the pipeline stops if any 'make' command fails
+          set -e
+          
+          # Find all directories containing a Makefile
+          MODS=$(find . -name "Makefile" -exec dirname {} +)
+          
+          for dir in $MODS; do
+            echo "------------------------------------------------"
+            echo "BUILDING: $dir"
+            echo "------------------------------------------------"
+            # Run make in the target directory
+            make -C "$dir"
+          done
+
+      - name: Collect Binaries
+        # This step runs even if previous steps fail so you can see what DID compile
+        if: always()
+        run: |
+          mkdir -p staging
+          # Find all executable files, excluding hidden files and the staging dir itself
+          find . -maxdepth 10 -type f -executable -not -path '*/.*' -not -path './staging/*' -exec cp {} ./staging/ \;
+          
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-binaries-${{ github.ref_name }}
+          path: staging/
+          retention-days: 7
+
+      - name: Create Release (Master Only)
+        if: github.ref == 'refs/heads/master' && success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          files: staging/*
+          body: |
+            Automated build from master branch.
+            Commit: ${{ github.sha }}
