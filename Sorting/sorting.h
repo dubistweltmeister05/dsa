@@ -11,6 +11,7 @@ enum sorting {
 
 int bubble_sort(int *arr, int size);
 int selection_sort(int *arr, int size);
+int insertion_sort(int *arr, int size);
 void print_ele(int *arr, int sie);
 
 #endif
