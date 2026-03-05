@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 	printf("Before sorting\n");
 	print_ele(arr, size);
 
-	printf("Select sorting technique\n 1. BUBBLE\t 2.SELECTION\n");
+	printf("Select sorting technique\n 1. BUBBLE\t 2.SELECTION\t 3.INSERTION\t \n");
 	scanf("%d", &choice);
 
 	switch(choice){
@@ -47,12 +47,21 @@ int main(int argc, char *argv[]) {
 	case SELECTION:
 		res = selection_sort(arr, size);
 		break;
+	case INSERTION:
+    	res = insertion_sort(arr, size);
+    	break;
 	default:
 		printf("Invalid choice\n");
+		res = -1;
+		break;
 	}
 
 	if (res < 0) {
 		printf("sorting failed\n");
+		if (arr) {
+        	free(arr);
+   		}
+		exit(1);
 	} else {
 		printf("Sorting success\n");
 	}
