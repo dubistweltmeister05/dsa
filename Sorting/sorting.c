@@ -1,4 +1,4 @@
-#include <sorting.h>
+#include "sorting.h"
 
 int bubble_sort(int *arr, int n) {
 	int i = 0;
@@ -104,7 +104,7 @@ void merge(int arr[], int left, int mid, int right) {
         k++;
     }
 }
-void mergeSort(int arr[], int left, int right) {
+int mergeSort(int arr[], int left, int right) {
     if (left < right) {
       
         int mid = left + (right - left) / 2;
@@ -114,4 +114,5 @@ void mergeSort(int arr[], int left, int right) {
 
         merge(arr, left, mid, right);
     }
+	return 0;
 }
