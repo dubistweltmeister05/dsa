@@ -1,15 +1,19 @@
 #include <stdio.h>
-#include <sorting.h>
+#include "sorting.h"
 
-void print_ele(int *arr, int size) {
+void print_ele(int *arr, int size)
+{
 	int i = 0;
-	for (i = 0; i < size; i++) {
+	for (i = 0; i < size; i++)
+	{
 		printf("arr[%d] = %d\n", i, arr[i]);
 	}
 }
 
-int main(int argc, char *argv[]) {
-	if (argc != 2) {
+int main(int argc, char *argv[])
+{
+	if (argc != 2)
+	{
 		printf("Please enter the size to allocate the memory via argument\n");
 		printf("USAGE: ./sorting_techniques <SIZE>\n");
 		return -1;
@@ -22,25 +26,28 @@ int main(int argc, char *argv[]) {
 	int size = atoi(argv[1]);
 
 	printf("Size = %d\n", size);
-	arr = malloc(sizeof(int) * size);
+	arr = (int* )malloc(sizeof(int) * size);
 
-	if (!arr) {
+	if (!arr)
+	{
 		printf("failed to allocate memory\n");
 		return -1;
 	}
 
 	printf("Enter the %d elements of array\n", size);
-	for (i = 0; i < size; i++) {
+	for (i = 0; i < size; i++)
+	{
 		scanf("%d", &arr[i]);
 	}
 
 	printf("Before sorting\n");
 	print_ele(arr, size);
 
-	printf("Select sorting technique\n 1. BUBBLE\t 2.SELECTION\t 3.INSERTION\t \n");
+	printf("Select sorting technique\n 1. BUBBLE\t 2.SELECTION\t 3.INSERTION\t 4.MERGE\t \n");
 	scanf("%d", &choice);
 
-	switch(choice){
+	switch (choice)
+	{
 	case BUBBLE:
 		res = bubble_sort(arr, size);
 		break;
@@ -48,28 +55,36 @@ int main(int argc, char *argv[]) {
 		res = selection_sort(arr, size);
 		break;
 	case INSERTION:
-    	res = insertion_sort(arr, size);
-    	break;
+		res = insertion_sort(arr, size);
+		break;
+	case MERGE:
+		res = mergeSort(arr, 0, size - 1);
+		break;
 	default:
 		printf("Invalid choice\n");
 		res = -1;
 		break;
 	}
 
-	if (res < 0) {
+	if (res < 0)
+	{
 		printf("sorting failed\n");
-		if (arr) {
-        	free(arr);
-   		}
+		if (arr)
+		{
+			free(arr);
+		}
 		exit(1);
-	} else {
+	}
+	else
+	{
 		printf("Sorting success\n");
 	}
 
 	printf("After sorting\n");
 	print_ele(arr, size);
 
-	if (arr) {
+	if (arr)
+	{
 		free(arr);
 	}
 
