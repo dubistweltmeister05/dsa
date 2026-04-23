@@ -24,7 +24,7 @@ int main()
         if (test[i] == candidate)
             count++;
 
-    printf("%d\n", (count > n/2) ? candidate : -1);
+    printf("%d\n", (count > n / 2) ? candidate : -1);
 
     return 0;
 }
